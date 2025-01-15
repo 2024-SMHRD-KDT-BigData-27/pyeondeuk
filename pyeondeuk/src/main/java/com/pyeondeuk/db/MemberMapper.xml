@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.db.MemberMapper">
+
+<!-- 회원 가입을 위한 sql 문장 작성! -->
+<insert id="join" parameterType="com.pyeondeuk.model.MemberDTO">
+	insert into USERS values(#{email},#{nick},#{pw},sysdate)
+</insert>
+
+   <!-- 회원 로그인을 위한 sql문장 작성! -->
+   <!-- select의 경우 실행에 대한 결과가 다양한 타입이 담긴 표 형태로 넘어오기 때문에
+       result에 대한 결과 타입이 지정되어야 한다!
+   -->
+   <select id ="login" parameterType="com.pyeondeuk.model.MemberDTO" resultType="com.pyeondeuk.model.MemberDTO">
+      select * from USERS where email=#{email} and pw=#{pw}
+   </select>
+	
+	<select id="selectAll" resultType="com.pyeondeuk.model.MemberDTO">
+		select * from USERS where not email = 'admin'
+	</select>
+	
+	<update id = "update" parameterType="com.pyeondeuk.model.MemberDTO">
+	update USERS
+	set pw = #{pw},nick = #{nick}
+	where email = #{email}
+	</update>
+	
+</mapper>
