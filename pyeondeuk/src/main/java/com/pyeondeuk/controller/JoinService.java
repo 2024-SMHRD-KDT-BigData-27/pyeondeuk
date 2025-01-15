@@ -32,6 +32,14 @@ public class JoinService extends HttpServlet {
 		MemberDTO dto = new MemberDTO(email,nick,pw);
 		// DB에 접근을 위한 기능을 호출하는 객체 !
 		MemberDAO dao = new MemberDAO();
+		// 닉네임 중복 확인
+		if (!dao.isNickAvailable(nick)) {
+	        // 닉네임 중복 시 처리
+	        request.setAttribute("error", "이미 사용 중인 닉네임입니다.");
+	        RequestDispatcher rd = request.getRequestDispatcher("sign.jsp");
+	        rd.forward(request, response);
+	        return;
+	    }
 		int result = dao.join(dto);
 		// 4. 결과 화면 출력 
 		if (result > 0) {
@@ -48,6 +56,8 @@ public class JoinService extends HttpServlet {
 	         // 실패시 다시 main.jsp로 이동!
 	         response.sendRedirect("login.jsp");
 	      }
+		
+		
 	}
 
 }
