@@ -1,6 +1,8 @@
 package com.pyeondeuk.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +31,15 @@ public class UpdateService extends HttpServlet {
 		
 		MemberDTO dto = new MemberDTO(email,nick,pw);
 		MemberDAO dao = new MemberDAO();
+		
+		// 닉네임 중복 확인
+        if (!dao.isNickAvailable(nick)) {
+            request.setAttribute("error", "이미 사용 중인 닉네임입니다.");
+            RequestDispatcher rd = request.getRequestDispatcher("update.jsp");
+            rd.forward(request, response);
+            return;
+        }
+		
 		int cnt = dao.update(dto);
 		
 		if(cnt>0) {

@@ -54,12 +54,20 @@ public class MemberDAO {
 		return cnt;
 	}
 	
-	public boolean isNickAvailable(String nick) {
-	    SqlSession sqlSession = sqlSessionFactory.openSession(true);
-	    int count = sqlSession.selectOne("checkNick", nick);
-	    sqlSession.close();
-	    return count == 0; // 0이면 사용 가능, 1 이상이면 중복
-	}
+	// 이메일 중복 확인
+    public boolean isEmailAvailable(String email) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        int count = sqlSession.selectOne("checkEmail", email);
+        sqlSession.close();
+        return count == 0;
+    }
 
+    // 닉네임 중복 확인
+    public boolean isNickAvailable(String nick) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        int count = sqlSession.selectOne("checkNick", nick);
+        sqlSession.close();
+        return count == 0;
+    }
 
 }

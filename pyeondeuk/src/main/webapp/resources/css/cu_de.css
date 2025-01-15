@@ -1,0 +1,150 @@
+@import url("fontawesome-all.min.css");
+@import url("https://fonts.googleapis.com/css?family=Oleo+Script:400|Open+Sans:300,300italic,600,600italic,800");
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff');
+}
+
+/*
+	Verti by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+html, body, div, span, applet, object,
+iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
+pre, a, abbr, acronym, address, big, cite,
+code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b,
+u, i, center, dl, dt, dd, ol, ul, li, fieldset,
+form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td, article, aside,
+canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby,
+section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+#con_name {
+    font-size: 45px;  /* 글씨 크기 30px로 설정 */
+}
+
+.store-info {
+    background-color: #6200ea;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+.store-info h1 {
+    color: white !important;
+}
+
+.tags {
+    margin-top: 10px;
+}
+.tag {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #6200ea;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.review-section {
+    margin: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.review-section h2 {
+    color: #333;
+}
+.review-form textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.review-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #6200ea;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.review-form button:hover {
+    background-color: #3700b3;
+}
+.reviews {
+    margin-top: 20px;
+}
+
+.review-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .review-form textarea {
+            width: 60%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .review-form button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .comments {
+            margin-top: 20px;
+            max-width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .comment {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .comments_co {
+            margin-top: 20px;
+            max-width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .comment_co {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }

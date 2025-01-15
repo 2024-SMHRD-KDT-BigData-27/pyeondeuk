@@ -29,12 +29,11 @@
             <a href="index.jsp"><img src="resources/images/logo.png" width="200px" alt="Logo"></a>
         </div>
     </div>
-    
-    <% String error = (String) request.getAttribute("error"); %>
-<% if (error != null) { %>
-    <p style="color: red;"><%= error %></p>
-<% } %>
-    
+   
+   <% String error = (String) request.getAttribute("error"); %>
+    <% if (error != null) { %>
+        <p style="color: red; text-align: center;"><%= error %></p>
+    <% } %>
 
     <div class="container">
         <!-- Heading -->
@@ -64,6 +63,9 @@
             <br>
         </form>
     </div>
+    
+    
+   
 </body>
-
 </html>
+

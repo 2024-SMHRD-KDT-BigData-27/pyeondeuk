@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>편의점 리뷰</title>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=71df7e3003dbbd28ec11f264e023e8c9"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+
+        #review-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: none;
+            z-index: 1000;
+        }
+
+        #review-modal h2 {
+            margin-top: 0;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .tags {
+            margin-top: 10px;
+        }
+
+        .tags span {
+            background: #f1f1f1;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>편의점 찾기 및 리뷰</h1>
+    <div id="map"></div>
+
+    <div id="overlay"></div>
+
+    <div id="review-modal">
+        <h2 id="store-name">편의점 이름</h2>
+        <textarea id="review-input" rows="5" cols="40" placeholder="리뷰를 입력하세요"></textarea><br><br>
+        <button id="submit-review">리뷰 남기기</button>
+        <button id="close-modal">닫기</button>
+        <div class="tags" id="tags-container"></div>
+        <p id="nickname"></p>
+    </div>
+
+    <script src="map.js"></script>
+</body>
+
+</html>

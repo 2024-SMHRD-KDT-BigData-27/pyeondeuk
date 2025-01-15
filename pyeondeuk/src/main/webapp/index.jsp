@@ -36,10 +36,10 @@
 						<li class="current"><a href="index.jsp">메인페이지</a></li>
 						<li><a href="#">할인상품</a>
 							<ul>
-								<li><a href="cu.html"><img src="resources/images/cu.png" width="50px"></a></li>
-								<li><a href="emart.html"><img src="resources/images/emart.png" width="70px"></a></li>
-								<li><a href="gs.html"><img src="resources/images/gs.png" width="60px"></a></li>
-								<li><a href="seven.html"><img src="resources/images/seven.png" width="70px"></a></li>
+								<li><a href="cu.html"><img src="resources/images/cu.png"  width="50px" ></a></li>
+								<li><a href="emart.html"><img src="resources/images/emart.png"  width="70px" ></a></li>
+								<li><a href="gs.html"><img src="resources/images/gs.png"  width="60px" ></a></li>
+								<li><a href="seven.html"><img src="resources/images/seven.png" width="70px" ></a></li>
 							</ul>
 						</li>
 

@@ -22,9 +22,14 @@
 
 	<select id="checkNick" parameterType="string" resultType="int">
 		SELECT COUNT(*)
-		FROM Member
+		FROM USERS
 		WHERE nick = #{nick}
 	</select>
+	
+	<!-- 이메일 중복 확인 -->
+    <select id="checkEmail" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM USERS WHERE email = #{email}
+    </select>
 
 
 	<update id="update"

@@ -260,6 +260,18 @@ form {
     }
 }
 
+#footer-wrapper {
+		padding: 4em 0 6em 0;
+	}
+
+#footer-wrapper {
+				padding: 6em 0 4em 0;
+			}
+
+#footer-wrapper {
+				padding: 40px 30px 40px 30px;
+			}
+
 footer {
     p {
         text-align: center;
