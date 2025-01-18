@@ -54,31 +54,6 @@ footer, header, hgroup, menu, nav, section {
 		border-radius: 10px;
 		text-align: center;  /* placeholder 텍스트 중앙 정렬 */
 	}
-	
-	#searchInput {
-	padding: 10px;
-		font-size: 20px;
-		width: 1300px;
-		height: 50px;
-		border: 2px solid #ccc;
-		border-radius: 10px;
-		text-align: center;  /* placeholder 텍스트 중앙 정렬 */
-	}
-	
-	#searchButton{
-	padding: 10px 20px;
-		font-size: 20px;
-		width: 90px;
-		height: 50px;
-		background-color: #4CAF50;
-		color: white;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		margin-left: 20px;
-	}
-	
-	
 	#button {
 		padding: 10px 20px;
 		font-size: 20px;
@@ -1699,19 +1674,19 @@ input, select, textarea {
 	}
 
 		.image img {
-			display: inline-flex;
-
+			display: block;
+			width: 100%;
 			border-radius: 8px;
 		}
 
 		.image.fit {
 			display: block;
-
+			width: 100%;
 		}
 
 		.image.featured {
 			display: block;
-
+			width: 100%;
 			margin: 0 0 2.5em 0;
 		}
 

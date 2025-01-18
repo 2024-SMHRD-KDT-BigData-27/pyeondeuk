@@ -250,11 +250,16 @@
             </div>
          </div>
       </div>
-      <%}else{ 
+      <%}else{ %>
+      
+      
+      <div id="features-wrapper">
+      <div class="container">
+      <div class="row">
 
 
     	
-    	  for (ProductDTO product : search_result){
+    	  <%for (ProductDTO product : search_result){
             
           %>
         
@@ -273,7 +278,12 @@
           </div>
           <%
           }
-    	  }
+    	  
+    	  %>
+    	  </div>
+          </div>
+       </div>
+    	 <% 	 }
           %>
       
       
