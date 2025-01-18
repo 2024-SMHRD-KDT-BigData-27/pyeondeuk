@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.smhrd.db.MemberMapper">
+<mapper namespace="com.pyeondeuk.db.MemberMapper">
 
 	<!-- 회원 가입을 위한 sql 문장 작성! -->
 	<insert id="join" parameterType="com.pyeondeuk.model.MemberDTO">
-		insert into USERS values(#{email},#{nick},#{pw},sysdate)
+		insert into USERS
+		values(#{email},#{nick},#{pw},sysdate)
 	</insert>
 
 	<!-- 회원 로그인을 위한 sql문장 작성! -->
@@ -21,22 +22,125 @@
 	</select>
 
 	<select id="checkNick" parameterType="string" resultType="int">
-		SELECT COUNT(*)
+		SELECT
+		COUNT(*)
 		FROM USERS
 		WHERE nick = #{nick}
 	</select>
-	
+
 	<!-- 이메일 중복 확인 -->
-    <select id="checkEmail" parameterType="string" resultType="int">
-        SELECT COUNT(*) FROM USERS WHERE email = #{email}
-    </select>
+	<select id="checkEmail" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM USERS WHERE email = #{email}
+	</select>
 
 
 	<update id="update"
 		parameterType="com.pyeondeuk.model.MemberDTO">
 		update USERS
 		set pw = #{pw},nick = #{nick}
-		where email = #{email}
+		where email =
+		#{email}
 	</update>
+
+	<insert id="saveReview"
+		parameterType="com.pyeondeuk.model.MemberDTO">
+		INSERT INTO CSREVIEW_TEST (REVIEW_SEQ, CS_SEQ, EMAIL, COMMENT_CONTENT,
+		RATING, CREATED_AT)
+		VALUES (
+		CSREVIEW_TEST_SEQ.NEXTVAL,
+		#{csSeq},
+		#{email},
+		#{commentContent},
+		#{rating},
+		sysdate)
+	</insert>
+
+
+	<select id="getAllReviews"
+		resultType="com.pyeondeuk.model.MemberDTO">
+		SELECT
+		CS_SEQ AS csSeq,
+		EMAIL AS email,
+		COMMENT_CONTENT AS commentContent,
+		RATING AS rating,
+		TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+		FROM CSREVIEW_TEST
+		ORDER BY CREATED_AT DESC
+	</select>
+
+	<select id="getReviewsByCsSeq" parameterType="int"
+		resultType="com.pyeondeuk.model.MemberDTO">
+		SELECT
+		R.CS_SEQ AS csSeq,
+		U.NICK AS nick,
+		R.EMAIL AS email,
+		R.COMMENT_CONTENT AS commentContent,
+		R.RATING AS rating,
+		TO_CHAR(R.CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+		FROM CSREVIEW_TEST R
+		JOIN USERS U ON R.EMAIL = U.EMAIL
+		WHERE R.CS_SEQ = #{csSeq}
+		ORDER BY R.CREATED_AT DESC
+	</select>
+
+	<select id="products_calling" parameterType="int"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT * FROM PRODUCTINFO WHERE PROD_SEQ = #{PROD_SEQ}
+	</select>
+
+	<select id="products_brand_calling" parameterType="HashMap"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT * FROM PRODUCTINFO WHERE BRAND_SEQ = #{brand_seq} AND PROD_SEQ =
+		#{PROD_SEQ}
+	</select>
+
+	<select id="products_calling_all"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM PRODUCTINFO
+		WHERE PROD_SEQ BETWEEN #{startId} AND #{endId};
+	</select>
+	
+	<select id="getAllProducts" 
+	resultType="com.pyeondeuk.model.ProductDTO">
+    SELECT * FROM PRODUCTINFO
+</select>
+
+	 <!-- 검색 쿼리 -->
+    <select id="searchProducts" parameterType="string" 
+    resultType="com.pyeondeuk.model.ProductDTO">
+        SELECT * 
+        FROM PRODUCTS
+        WHERE PROD_NAME LIKE CONCAT('%', #{query}, '%')
+    </select>
+	
+
+	   <select id="products_PB_calling"
+   parameterType="int"
+      resultType="com.pyeondeuk.model.ProductDTO">
+      SELECT *
+      FROM (
+      SELECT ROWNUM AS rn, p.*
+      FROM (
+      SELECT *
+      FROM
+      PRODUCTINFO
+      WHERE PROD_CATEGORY IN ('PB 상품', 'CU 단독 운영 상품')
+      ORDER BY
+      PROD_SEQ
+      ) p
+      )
+      WHERE rn = #{PROD_SEQ}
+   </select>
+   
+     <select id="products_keyword_calling" parameterType="string" 
+    resultType="com.pyeondeuk.model.ProductDTO">
+        SELECT * 
+        FROM PRODUCTINFO
+   WHERE PROD_NAME LIKE '%' || #{keyword} || '%'
+    </select>
+   
+   
+
 
 </mapper>

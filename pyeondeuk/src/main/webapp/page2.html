@@ -7,6 +7,38 @@
     <title>상품 상세 페이지</title>
     <link rel="stylesheet" href="resources/css/page_2.css">
     <link rel="stylesheet" href="resources/css/page.css">
+    <style>
+        /* 모달 중앙 정렬을 위한 스타일 */
+        
+
+        .modal-content {
+        margin : 350px;
+        margin-left : 700px;
+            text-align: center;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .modal button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #444444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #696969;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,14 +48,14 @@
             <!-- Logo -->
             <div id="logo">
 
-                <a href="index.html"><img src="resources/images/logo.png" width="200px"></a>
+                <a href="index.jsp"><img src="resources/images/logo.png" width="200px"></a>
 
             </div>
 
             <!-- Nav -->
             <nav id="nav">
                 <ul>
-                    <li class="current"><a href="index.html">메인페이지</a></li>
+                    <li class="current"><a href="index.jsp">메인페이지</a></li>
                     <li><a href="#">할인상품</a>
                         <ul>
                             <li><a href="cu.html"><img src="resources/images/cu.png" width="50px"></a></li>
@@ -45,13 +77,12 @@
                     <li><a href="event.html">이벤트</a></li>
 
                     <li><a
-                            href="https://m.place.naver.com/cvs/list?query=%ED%8E%B8%EC%9D%98%EC%A0%90&brand=223309">편의점찾기</a>
+                            href="map.jsp">편의점찾기</a>
                     </li>
-                    <li><a href="login.html">로그인</a> </li>
+                    <li><a href="login.jsp">로그인</a> </li>
 
                 </ul>
                 </li>
-
 
                 </ul>
             </nav>
@@ -91,16 +122,16 @@
         <!-- 공유 및 위치 버튼 -->
         <div class="actions">
             <button class="action-button share" onclick="showShareLink()">공유하기</button>
-            <a href="https://m.place.naver.com/cvs/list?query=%ED%8E%B8%EC%9D%98%EC%A0%90&brand=223309"><button
+            <a href="map.jsp"><button
                     class="action-button location">위치보기</button></a>
         </div>
 
         <!-- 공유 링크 표시 모달 -->
-        <div id="shareModal" class="modal">
+        <div id="shareModal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" onclick="closeShareLink()">&times;</span>
-                <p>아래 링크를 복사하여 공유하세요:</p>
-                <input type="text" id="shareLink" value="https://example.com/product/12345" readonly>
+                <p>아래 링크를 복사하여 공유하세요</p>
+                <input type="text" id="shareLink" value="" readonly>
                 <button onclick="copyShareLink()">링크 복사</button>
             </div>
         </div>
@@ -119,7 +150,7 @@
         const chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06'],
+                labels: ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06'],
                 datasets: [
                     {
                         label: '개당가격',
@@ -144,8 +175,36 @@
                 }
             }
         });
+
+        function showShareLink() {
+            // 현재 페이지 URL 가져오기
+            const currentUrl = window.location.href;
+
+            // 공유 모달 표시
+            const shareModal = document.getElementById('shareModal');
+            shareModal.style.display = 'block';
+
+            // 공유 링크에 현재 페이지 URL 삽입
+            const shareLinkInput = document.getElementById('shareLink');
+            shareLinkInput.value = currentUrl;
+        }
+
+        function closeShareLink() {
+            // 공유 모달 닫기
+            const shareModal = document.getElementById('shareModal');
+            shareModal.style.display = 'none';
+        }
+
+        function copyShareLink() {
+            // 공유 링크 복사
+            const shareLinkInput = document.getElementById('shareLink');
+            shareLinkInput.select();
+            document.execCommand('copy');
+
+            // 복사 완료 알림
+            alert('링크가 복사되었습니다: ' + shareLinkInput.value);
+        }
     </script>
-    </div>
 
     <!-- Footer -->
     <div id="footer-wrapper">

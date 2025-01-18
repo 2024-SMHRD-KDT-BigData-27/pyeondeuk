@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+/* 전체 화면 중앙 정렬을 위한 body 스타일 */
+body {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  justify-content: center; /* 세로 방향 중앙 정렬 */
+  align-items: center; /* 가로 방향 중앙 정렬 */
+  min-height: 100vh; /* 화면 높이를 100%로 설정 */
+  margin: 0; /* 기본 여백 제거 */
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("resources/images/bg01.png");
+		background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("resources/images/bg01.png");
+		background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("resources/images/bg01.png");
+		background-image: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("resources/images/bg01.png");
+    background-color: #f7f7f7; /* 배경색 추가 */
+}
+
+
+
+.star_rating {
+  width: 100%; 
+  box-sizing: border-box; 
+  display: inline-flex; 
+  float: left;
+  flex-direction: row; 
+  justify-content: center;
+  
+}
+.star_rating .star {
+  width: 25px; 
+  height: 25px; 
+  margin-right: 10px;
+  display: inline-block; 
+  background: url('https://cdn-icons-png.flaticon.com/512/16/16078.png') no-repeat; 
+  background-size: 100%; 
+  box-sizing: border-box; 
+}
+.star_rating .star.on {
+  width: 25px; 
+  height: 25px;
+  margin-right: 10px;
+  display: inline-block; 
+  background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb2d6gV%2FbtsvbDoal87%2FXH5b17uLeEJcBP3RV3FyDk%2Fimg.png') no-repeat;
+  background-size: 115%; 
+  box-sizing: border-box; 
+}
+
+.star_box {
+  width: 1000px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 15px 0;
+  background: #fff;
+  border: 0;
+  border-radius: 10px;
+  height: 100px;
+  resize: none;
+  padding: 15px;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+.btn02 {
+  display:block;
+  width: 1000px;
+  font-weight: bold;
+  border: 0;
+  border-radius: 10px;
+  max-height: 50px;
+  padding: 15px 0;
+  font-size: 1.1em;
+  text-align: center;
+  background :  #333;}
+  
+  /* 리뷰 표시 영역 */
+#reviewDisplay {
+  width :1000px; 
+  margin-top: 20px;
+  border-top: 2px solid #ddd;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#reviewDisplay h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin: 15px;
+}
+
+#reviewList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#reviewList li {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#reviewList li:last-child {
+  margin-bottom: 0;
+}
+
+#reviewList li .store-name {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #444;
+}
+
+#reviewList li .rating {
+  color: gold;
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+
+#reviewList li .review-content {
+  margin-top: 10px;
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+}

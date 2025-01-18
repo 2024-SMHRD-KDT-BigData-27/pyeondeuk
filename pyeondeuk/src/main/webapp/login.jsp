@@ -53,15 +53,18 @@
             <p>OR</p>
         </div>
         <!-- 네이버 로그인 버튼 -->
-        <button class="google__btn">
+        <a class="google__btn" href="https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/" style="text-align: center; text-decoration: none;">
             <i class="fa fa-google"></i>
             네이버 아이디로 로그인
-        </button>
+        </a>
+        
+ </div>
+
         <!-- 카카오 로그인 버튼 -->
-        <button class="github__btn">
+        <a class="github__btn" href="https://accounts.kakao.com/login/?continue=https%3A%2F%2Faccounts.kakao.com%2Fweblogin%2Faccount#login" style="text-align: center; text-decoration: none;">
             <i class="fa fa-github"></i>
             카카오 아이디로 로그인
-        </button>
+        </a>
     </div>
 </body>
 

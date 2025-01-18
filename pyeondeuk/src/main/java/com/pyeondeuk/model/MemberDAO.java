@@ -1,6 +1,7 @@
 package com.pyeondeuk.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -69,5 +70,40 @@ public class MemberDAO {
         sqlSession.close();
         return count == 0;
     }
+    
+    public boolean saveReview(MemberDTO review) {
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            int result = session.insert("com.pyeondeuk.db.MemberMapper.saveReview", review);
+            session.commit();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<MemberDTO> getAllReviews() {
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            return session.selectList("com.pyeondeuk.db.MemberMapper.getAllReviews");
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<MemberDTO> getReviewsByCsSeq(int csSeq) {
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            return session.selectList("com.pyeondeuk.db.MemberMapper.getReviewsByCsSeq", csSeq);
+        } finally {
+            session.close();
+        }
+    }
+
+
 
 }

@@ -152,3 +152,8 @@ input#shareLink {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+#copy {
+	background-color: 696969;
+	
+}

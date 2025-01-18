@@ -3,6 +3,7 @@ package com.pyeondeuk.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data  //모든 게터 세터 기본생성자 추가
@@ -15,8 +16,11 @@ public class MemberDTO {
    private String email;
    private String nick;
    private String pw;
-   
-   // 메소드 생성 -> 1. 생성자 메소드  2. getter/setter 메소드
+   private int reviewSeq;
+   private int csSeq;
+   private String commentContent;
+   private int rating;
+   private String createdAt;
+  
 
-   
 }

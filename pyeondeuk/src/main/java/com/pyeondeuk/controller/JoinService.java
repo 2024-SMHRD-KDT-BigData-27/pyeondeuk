@@ -29,7 +29,7 @@ public class JoinService extends HttpServlet {
 		//System.out.println(email + "/"+pw+"/"+tel+"/"+address);
 		
 		// DTO 호출
-		MemberDTO dto = new MemberDTO(email,nick,pw);
+		MemberDTO dto = new MemberDTO(email,nick,pw, 0, 0, null, 0,null);
 		// DB에 접근을 위한 기능을 호출하는 객체 !
 		MemberDAO dao = new MemberDAO();
 		

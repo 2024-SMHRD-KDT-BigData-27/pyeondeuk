@@ -29,7 +29,7 @@ public class UpdateService extends HttpServlet {
 		String nick = request.getParameter("nick");
 		String pw = request.getParameter("pw");
 		
-		MemberDTO dto = new MemberDTO(email,nick,pw);
+		MemberDTO dto = new MemberDTO(email,nick,pw, 0, 0, null, 0,null);
 		MemberDAO dao = new MemberDAO();
 		
 		// 닉네임 중복 확인

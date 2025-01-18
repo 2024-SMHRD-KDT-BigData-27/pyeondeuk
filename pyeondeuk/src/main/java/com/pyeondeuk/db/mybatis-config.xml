@@ -20,5 +20,7 @@
     <!-- 매퍼 설정 -->
     <mappers>
         <mapper resource="com/pyeondeuk/db/MemberMapper.xml"/>
+        <mapper resource="com/pyeondeuk/db/ConvenienceStoreMapper.xml" />
+         <mapper resource="com/pyeondeuk/db/EventMapper.xml" />
     </mappers>
 </configuration>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pyeondeuk.db.EventMapper">
+
+
+
+
+	<!-- 이벤트 데이터 가져오기 -->
+	<select id="getEvents" resultType="com.pyeondeuk.model.EventDTO"
+		parameterType="int">
+
+
+
+
+
+		SELECT *
+		FROM (
+		SELECT ROWNUM AS rn, p.*
+		FROM (
+		SELECT *
+		FROM
+		EVENTS
+		ORDER BY
+		BRAND_SEQ
+		) p
+		)
+		WHERE rn = #{i}
+	</select>
+
+
+
+
+
+
+
+</mapper>
