@@ -45,25 +45,25 @@
 						<li class="current"><a href="index.jsp">메인페이지</a></li>
 						<li><a href="#">할인상품</a>
 							<ul>
-								<li><a href="cu.html"><img
-										src="resources/images/cu.png" width="50px"></a></li>
-								<li><a href="emart.html"><img
+								<li><a href="store.jsp?storeId=1"><img
 										src="resources/images/emart.png" width="70px"></a></li>
-								<li><a href="gs.html"><img
+								<li><a href="store.jsp?storeId=2"><img
+										src="resources/images/cu.png" width="50px"></a></li>
+								<li><a href="store.jsp?storeId=3"><img
 										src="resources/images/gs.png" width="60px"></a></li>
-								<li><a href="seven.html"><img
+								<li><a href="store.jsp?storeId=4"><img
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
 
 						<li><a href="#">PB상품</a>
 							<ul>
-								<li><a href="cu_pb.html"><img
-										src="resources/images/cu.png" width="50px"></a></li>
-								<li><a href="emart_pb.html"><img
+								<li><a href="store.jsp?storeId=5"><img
 										src="resources/images/emart.png" width="70px"></a></li>
-								<li><a href="gs_pb.html"><img
+								<li><a href="store.jsp?storeId=6"><img
+										src="resources/images/cu.png" width="50px"></a></li>
+								<li><a href="store.jsp?storeId=7"><img
 										src="resources/images/gs.png" width="60px"></a></li>
-								<li><a href="seven_pb.html"><img
+								<li><a href="store.jsp?storeId=8"><img
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
 
@@ -234,12 +234,12 @@
                   <section class="box feature">
                      <a href="#" class="image featured" style="text-decoration: none;"><img
                         src="<%=dto_P.getPROD_IMG() %>"
-                        width="200px">
+                        width="200px"></a>
                      <div class="inner">
                         <header>
                            <h1 style="text-align: center;"><%=dto_P.getPROD_NAME() %></h1>
                            <h2 style="text-align: center;"><%=dto_P.getPROD_PRICE()%></h2>
-                           <p style="text-align: center;">CU</p></a>
+                           <p style="text-align: center;">CU</p>
                         </header>
                      </div>
                   </section>
@@ -265,13 +265,13 @@
         
           <div class="col-3">
              <section class="box feature">
-                <a href="./page2.html" class="image featured" style="text-decoration: none;"><img
-                   src="<%=product.getPROD_IMG() %>">
+                <a href="./page2.html" class="image featured searchImg" style="text-decoration: none;"><img
+                   src="<%=product.getPROD_IMG() %>" class="innerimg"></a>
                 <div class="inner">
                    <header>
                       <h1 style="text-align: center;"><%=product.getPROD_NAME() %></h1>
                       <h2 style="text-align: center;"><%=product.getPROD_PRICE()%></h2>
-                      <p style="text-align: center;">CU</p></a>
+                      <p style="text-align: center;">CU</p>
                    </header>
                 </div>
              </section>

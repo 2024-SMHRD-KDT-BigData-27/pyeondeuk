@@ -44,7 +44,8 @@
 
 	<insert id="saveReview"
 		parameterType="com.pyeondeuk.model.MemberDTO">
-		INSERT INTO CSREVIEW_TEST (REVIEW_SEQ, CS_SEQ, EMAIL, COMMENT_CONTENT,
+		INSERT INTO CSREVIEW_TEST (REVIEW_SEQ, CS_SEQ, EMAIL,
+		COMMENT_CONTENT,
 		RATING, CREATED_AT)
 		VALUES (
 		CSREVIEW_TEST_SEQ.NEXTVAL,
@@ -61,9 +62,11 @@
 		SELECT
 		CS_SEQ AS csSeq,
 		EMAIL AS email,
-		COMMENT_CONTENT AS commentContent,
+		COMMENT_CONTENT AS
+		commentContent,
 		RATING AS rating,
-		TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+		TO_CHAR(CREATED_AT, 'YYYY-MM-DD
+		HH24:MI:SS') AS createdAt
 		FROM CSREVIEW_TEST
 		ORDER BY CREATED_AT DESC
 	</select>
@@ -77,9 +80,11 @@
 		R.COMMENT_CONTENT AS commentContent,
 		R.RATING AS rating,
 		TO_CHAR(R.CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
-		FROM CSREVIEW_TEST R
+		FROM
+		CSREVIEW_TEST R
 		JOIN USERS U ON R.EMAIL = U.EMAIL
-		WHERE R.CS_SEQ = #{csSeq}
+		WHERE R.CS_SEQ =
+		#{csSeq}
 		ORDER BY R.CREATED_AT DESC
 	</select>
 
@@ -90,7 +95,8 @@
 
 	<select id="products_brand_calling" parameterType="HashMap"
 		resultType="com.pyeondeuk.model.ProductDTO">
-		SELECT * FROM PRODUCTINFO WHERE BRAND_SEQ = #{brand_seq} AND PROD_SEQ =
+		SELECT * FROM PRODUCTINFO WHERE BRAND_SEQ = #{brand_seq}
+		AND PROD_SEQ =
 		#{PROD_SEQ}
 	</select>
 
@@ -98,49 +104,72 @@
 		resultType="com.pyeondeuk.model.ProductDTO">
 		SELECT *
 		FROM PRODUCTINFO
-		WHERE PROD_SEQ BETWEEN #{startId} AND #{endId};
+		WHERE PROD_SEQ BETWEEN #{startId}
+		AND #{endId};
 	</select>
-	
-	<select id="getAllProducts" 
-	resultType="com.pyeondeuk.model.ProductDTO">
-    SELECT * FROM PRODUCTINFO
+
+	<select id="getAllProducts"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT * FROM PRODUCTINFO
+	</select>
+
+	<!-- 검색 쿼리 -->
+	<select id="searchProducts" parameterType="string"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM PRODUCTS
+		WHERE PROD_NAME LIKE CONCAT('%',
+		#{query}, '%')
+	</select>
+
+
+	<select id="products_PB_calling" parameterType="int"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT ROWNUM AS rn, p.*
+		FROM (
+		SELECT *
+		FROM
+		PRODUCTINFO
+		WHERE PROD_CATEGORY IN ('PB 상품', 'CU 단독 운영 상품')
+		ORDER BY
+		PROD_SEQ
+		) p
+		)
+		WHERE rn = #{PROD_SEQ}
+	</select>
+
+	<select id="products_keyword_calling" parameterType="string"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM PRODUCTINFO
+		WHERE PROD_NAME LIKE '%' ||
+		#{keyword} || '%'
+	</select>
+
+
+<select id="products_store_calling" parameterType="map" resultType="com.pyeondeuk.model.ProductDTO">
+    SELECT * 
+    FROM (
+        SELECT p.*, ROWNUM AS rn
+        FROM (
+            SELECT * 
+            FROM PRODUCTINFO
+            WHERE BRAND_SEQ = #{BRAND_SEQ} 
+              AND PROD_CATEGORY = #{PROD_CATEGORY}
+            ORDER BY PROD_SEQ
+        ) p
+        WHERE ROWNUM &lt;= #{page} + #{pageSize}
+    )
+    WHERE rn &gt; #{page}
 </select>
 
-	 <!-- 검색 쿼리 -->
-    <select id="searchProducts" parameterType="string" 
-    resultType="com.pyeondeuk.model.ProductDTO">
-        SELECT * 
-        FROM PRODUCTS
-        WHERE PROD_NAME LIKE CONCAT('%', #{query}, '%')
-    </select>
-	
 
-	   <select id="products_PB_calling"
-   parameterType="int"
-      resultType="com.pyeondeuk.model.ProductDTO">
-      SELECT *
-      FROM (
-      SELECT ROWNUM AS rn, p.*
-      FROM (
-      SELECT *
-      FROM
-      PRODUCTINFO
-      WHERE PROD_CATEGORY IN ('PB 상품', 'CU 단독 운영 상품')
-      ORDER BY
-      PROD_SEQ
-      ) p
-      )
-      WHERE rn = #{PROD_SEQ}
-   </select>
-   
-     <select id="products_keyword_calling" parameterType="string" 
-    resultType="com.pyeondeuk.model.ProductDTO">
-        SELECT * 
-        FROM PRODUCTINFO
-   WHERE PROD_NAME LIKE '%' || #{keyword} || '%'
-    </select>
-   
-   
+
+
+
+
 
 
 </mapper>

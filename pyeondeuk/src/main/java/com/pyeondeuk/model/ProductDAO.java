@@ -1,7 +1,9 @@
 package com.pyeondeuk.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -75,6 +77,23 @@ public List<ProductDTO> products_keyword_calling(String keyword) {
     }
     return info;
 }
+
+public List<ProductDTO> products_store_calling(int BRAND_SEQ, String PROD_CATEGORY, int page, int pageSize) {
+    SqlSession session = sqlSessionFactory.openSession();
+    List<ProductDTO> products = new ArrayList<>();
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("BRAND_SEQ", BRAND_SEQ);
+    params.put("PROD_CATEGORY", PROD_CATEGORY);
+    params.put("page", (page - 1) * pageSize); // 0-based 오프셋 계산
+    params.put("pageSize", pageSize);          // 페이지 크기
+    
+    products = session.selectList("products_store_calling", params);
+    session.close();
+    return products;
+}
+
+
 
 
 
