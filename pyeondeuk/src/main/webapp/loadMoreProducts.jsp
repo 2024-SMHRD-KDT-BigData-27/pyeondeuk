@@ -16,7 +16,7 @@ for (ProductDTO product : productList) {
 
 <div class="col-3">
 	<section class="box feature">
-		<a href="./page2.html" class="image featured searchImg"
+		<a href="./product.jsp?PROD_SEQ=<%=product.getPROD_SEQ()%>" class="image featured searchImg"
 			style="text-decoration: none;"><img
 			src="<%=product.getPROD_IMG()%>" class="innerimg"></a>
 		<div class="inner">
@@ -31,3 +31,7 @@ for (ProductDTO product : productList) {
 <%
 }
 %>
+
+
+
+

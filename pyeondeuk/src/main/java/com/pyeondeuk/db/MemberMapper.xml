@@ -149,21 +149,40 @@
 	</select>
 
 
-<select id="products_store_calling" parameterType="map" resultType="com.pyeondeuk.model.ProductDTO">
-    SELECT * 
-    FROM (
-        SELECT p.*, ROWNUM AS rn
-        FROM (
-            SELECT * 
-            FROM PRODUCTINFO
-            WHERE BRAND_SEQ = #{BRAND_SEQ} 
-              AND PROD_CATEGORY = #{PROD_CATEGORY}
-            ORDER BY PROD_SEQ
-        ) p
-        WHERE ROWNUM &lt;= #{page} + #{pageSize}
-    )
-    WHERE rn &gt; #{page}
-</select>
+	<select id="products_store_calling" parameterType="map"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT p.*, ROWNUM AS rn
+		FROM (
+		SELECT *
+		FROM PRODUCTINFO
+		WHERE BRAND_SEQ = #{BRAND_SEQ}
+		AND PROD_CATEGORY = #{PROD_CATEGORY}
+		ORDER BY PROD_SEQ
+		) p
+		WHERE ROWNUM &lt;= #{page} + #{pageSize}
+		)
+		WHERE rn &gt; #{page}
+	</select>
+
+
+	<select id="products_pb_calling" parameterType="map"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT p.*, ROWNUM AS rn
+		FROM (
+		SELECT *
+		FROM PRODUCTINFO
+		WHERE BRAND_SEQ = #{BRAND_SEQ}
+		AND PROD_CATEGORY IN ('CU 단독 운영 상품', 'PB 상품')
+		ORDER BY PROD_SEQ
+		) p
+		WHERE ROWNUM &lt;= #{pagePB} + #{pageSize}
+		)
+		WHERE rn &gt; #{pagePB}
+	</select>
 
 
 

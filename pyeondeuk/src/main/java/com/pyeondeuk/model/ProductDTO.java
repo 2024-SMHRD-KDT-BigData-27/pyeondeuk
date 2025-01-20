@@ -21,6 +21,7 @@ public class ProductDTO {
    private String PROD_CATEGORY;
    private String PROD_DISCOUNT_INFO;
    private String BRAND_PROD_SEQ;
-
+   private String CATEGORY;
+   private String UNIT_PRICE;
 
 }

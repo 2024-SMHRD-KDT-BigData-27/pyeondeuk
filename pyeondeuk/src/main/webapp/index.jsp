@@ -1,3 +1,6 @@
+<%@page import="com.pyeondeuk.model.EventDAO"%>
+<%@page import="com.pyeondeuk.model.EventDTO"%>
+<%@page import="java.awt.Event"%>
 <%@page import="com.pyeondeuk.model.ProductDAO"%>
 <%@page import="com.pyeondeuk.model.ProductDTO"%>
 <%@page import="com.pyeondeuk.model.MemberDTO"%>
@@ -43,7 +46,7 @@
 				<nav id="nav">
 					<ul>
 						<li class="current"><a href="index.jsp">메인페이지</a></li>
-						<li><a href="#">할인상품</a>
+						<li><a href="#">플러스상품</a>
 							<ul>
 								<li><a href="store.jsp?storeId=1"><img
 										src="resources/images/emart.png" width="70px"></a></li>
@@ -90,41 +93,25 @@
 		</div>
 
 		<!-- 이벤트 배너 -->
+		
+		
 		<div class="slider-container">
 			<button class="arrow left">&lt;</button>
 			<div class="flex-container">
+			<%	
+		for(int i=1; i <= 5; i++){
+		EventDAO evt_dao = new EventDAO();
+		EventDTO evt_dto = evt_dao.getEvents(i);
+		%>
 				<div class="col-3">
 					<section class="event">
-						<a href="#" class="event_img"> <img
-							src="https://cdn2.bgfretail.com/bgfbrand/files/newmainImage/ADF9A911F57B4D72B7FA1373B398E44D.jpg"
+						<a href="<%=evt_dto.getEVENT_URL() %>" class="event_img"> <img
+							src="<%=evt_dto.getEVENT_SRC() %>"
 							style="padding: 50px;" width="700px" height="400px">
 						</a>
 					</section>
 				</div>
-				<div class="col-3">
-					<section class="event">
-						<a href="#" class="event_img"> <img
-							src="https://cdn2.bgfretail.com/bgfbrand/files/newmainImage/966343EC13DC434981FC6652C3B70D9B.jpg"
-							style="padding: 50px;" width="700px" height="400px">
-						</a>
-					</section>
-				</div>
-				<div class="col-3">
-					<section class="event">
-						<a href="#" class="event_img"> <img
-							src="https://cdn2.bgfretail.com/bgfbrand/files/newmainImage/077C68EF48994E10B343D47E718C4DE7.jpg"
-							style="padding: 50px;" width="700px" height="400px">
-						</a>
-					</section>
-				</div>
-				<div class="col-3">
-					<section class="event">
-						<a href="#" class="event_img"> <img
-							src="https://cdn2.bgfretail.com/bgfbrand/files/newmainImage/18A4D72659994DBDAD27B11BF8C27F90.jpg"
-							style="padding: 50px;" width="700px" height="400px">
-						</a>
-					</section>
-				</div>
+				<% } %>
 			</div>
 			<button class="arrow right">&gt;</button>
 		</div>
@@ -188,7 +175,7 @@
 					
 					<div class="col-3">
 						<section class="box feature">
-							<a href="./page2.html" class="image featured"><img
+							<a href="./product.jsp?PROD_SEQ=<%=dto_P.getPROD_SEQ()%>" class="image featured"><img
 								src="<%=dto_P.getPROD_IMG()%>"></a>
 							<div class="inner">
 								<header>
@@ -232,7 +219,7 @@
                %>
                <div class="col-3">
                   <section class="box feature">
-                     <a href="#" class="image featured" style="text-decoration: none;"><img
+                     <a href="./product.jsp?PROD_SEQ=<%=dto_P.getPROD_SEQ()%>" class="image featured" style="text-decoration: none;"><img
                         src="<%=dto_P.getPROD_IMG() %>"
                         width="200px"></a>
                      <div class="inner">
@@ -265,7 +252,7 @@
         
           <div class="col-3">
              <section class="box feature">
-                <a href="./page2.html" class="image featured searchImg" style="text-decoration: none;"><img
+                <a href="./product.jsp?PROD_SEQ=<%=product.getPROD_SEQ()%>" class="image featured searchImg" style="text-decoration: none;"><img
                    src="<%=product.getPROD_IMG() %>" class="innerimg"></a>
                 <div class="inner">
                    <header>

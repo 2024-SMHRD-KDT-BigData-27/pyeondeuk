@@ -93,6 +93,22 @@ public List<ProductDTO> products_store_calling(int BRAND_SEQ, String PROD_CATEGO
     return products;
 }
 
+public List<ProductDTO> getPBProducts(int brandSeq, int pagePB, int pageSize) {
+    SqlSession session = sqlSessionFactory.openSession();
+    List<ProductDTO> products = null;
+    try {
+        Map<String, Object> params = new HashMap<>();
+        params.put("BRAND_SEQ", brandSeq);
+        params.put("pagePB", pagePB);
+        params.put("pageSize", pageSize);
+        products = session.selectList("products_pb_calling", params);
+    } finally {
+        session.close();
+    }
+    return products;
+}
+
+
 
 
 

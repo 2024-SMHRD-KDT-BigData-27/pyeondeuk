@@ -16,9 +16,9 @@ for (ProductDTO product : productList) {
 
 <div class="col-3">
 	<section class="box feature">
-		<a href="./page2.html" class="image featured searchImg"
-			style="text-decoration: none;"> <img
-			src="<%=product.getPROD_IMG()%>" class="innerimg"></a>
+		<a href="./product.jsp?PROD_SEQ=<%=product.getPROD_SEQ()%>" class="image featured searchImg"
+			style="text-decoration: none;" > <img
+			src="<%=product.getPROD_IMG()%>" class="innerimg" alt="상품 이미지"></a>
 		<div class="inner">
 			<header>
 				<h1 style="text-align: center;"><%=product.getPROD_NAME()%></h1>

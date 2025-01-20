@@ -53,6 +53,16 @@ h2 {
 	padding: 8px;
 }
 
+#product-2+1-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+#product-2+1-container .col-3 {
+	display: block; /* 혹은 적절한 flex/grid */
+}
+
 /* 선택된 옵션 강조 스타일 */
 .dropdown select option:checked {
 	background-color: #0066cc;
@@ -79,27 +89,27 @@ h2 {
 				<nav id="nav">
 					<ul>
 						<li><a href="index.jsp">메인페이지</a></li>
-						<li><a href="#">할인상품</a>
+						<li><a href="#">플러스상품</a>
 							<ul>
-								<li><a href="cu.html"><img
-										src="resources/images/cu.png" width="50px"></a></li>
-								<li><a href="emart.html"><img
+								<li><a href="store.jsp?storeId=1"><img
 										src="resources/images/emart.png" width="70px"></a></li>
-								<li><a href="gs.html"><img
+								<li><a href="store.jsp?storeId=2"><img
+										src="resources/images/cu.png" width="50px"></a></li>
+								<li><a href="store.jsp?storeId=3"><img
 										src="resources/images/gs.png" width="60px"></a></li>
-								<li><a href="seven.html"><img
+								<li><a href="store.jsp?storeId=4"><img
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
 
 						<li><a href="#">PB상품</a>
 							<ul>
-								<li><a href="cu_pb.html"><img
-										src="resources/images/cu.png" width="50px"></a></li>
-								<li><a href="emart_pb.html"><img
+								<li><a href="store.jsp?storeId=5"><img
 										src="resources/images/emart.png" width="70px"></a></li>
-								<li><a href="gs_pb.html"><img
+								<li><a href="store.jsp?storeId=6"><img
+										src="resources/images/cu.png" width="50px"></a></li>
+								<li><a href="store.jsp?storeId=7"><img
 										src="resources/images/gs.png" width="60px"></a></li>
-								<li><a href="seven_pb.html"><img
+								<li><a href="store.jsp?storeId=8"><img
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
 
@@ -189,7 +199,9 @@ h2 {
 					</article>
 
 					<br>
-
+					<%
+						if (storeId == 1 || storeId == 2 || storeId == 3 || storeId == 4) {
+					%>
 					<h2>1+1</h2>
 					<br>
 
@@ -214,7 +226,7 @@ h2 {
 
 					<div id="features-wrapper">
 						<div class="container">
-							<div class="row" id="product-2+1-container">
+							<div class="row" id="product-2p1-container">
 								<!-- 최초 로딩 시 1번째 페이지의 상품들만 보여줍니다 -->
 							</div>
 						</div>
@@ -223,11 +235,27 @@ h2 {
 					<div id="data-container">
 						<button class="add" id="btn_more_2p1_cu">+</button>
 					</div>
+					<%
+} else {
+%>
+					<h2>PB 상품</h2>
+					<br>
+					<div id="features-wrapper">
+						<div class="container">
+							<div class="row" id="pb-product-container">
+								<!-- PB 상품 리스트 -->
+							</div>
+						</div>
+					</div>
+
+					<div id="data-container">
+						<button class="add" id="btn_more_pb">+</button>
+					</div>
+<%} %>
 
 
 
 
-					</article>
 
 				</div>
 			</div>
@@ -298,34 +326,64 @@ h2 {
 			});
 		}
 	</script>
-	
+
 	<script type="text/javascript">
+		$(document).ready(function() {
+			loadProducts2p1(1); // 첫 번째 페이지 데이터 로드
 
-	$(document).ready(function() {
-	    loadProducts2p1(1); // 첫 번째 페이지 데이터 로드
+			// '더보기' 버튼 클릭 시
+			$("#btn_more_2p1_cu").click(function() {
+				page2p1++; // 페이지 번호 증가
+				loadProducts2p1(page2p1); // 다음 페이지 데이터 로드
+			});
+		});
 
-	    // '더보기' 버튼 클릭 시
-	    $("#btn_more_2p1_cu").click(function() {
-	        page2p1++; // 페이지 번호 증가
-	        loadProducts2p1(page2p1); // 다음 페이지 데이터 로드
-	    });
-	});
-
-	function loadProducts2p1(page) {
-	    $.ajax({
-	        url: 'loadMoreProducts_2p1.jsp', // AJAX 요청을 처리할 JSP 파일
-	        type: 'GET',
-	        data: { storeId: storeId, page: page }, // storeId와 페이지 번호를 서버로 전달
-	        success: function(response) {
-	            $("#product-2+1-container").append(response); // 응답으로 받은 HTML 추가
-	        },
-	        error: function() {
-	            alert('2+1 상품을 불러오는 데 실패했습니다.');
-	        }
-	    });
-	}
+		function loadProducts2p1(page) {
+			$.ajax({
+				url : 'loadMoreProducts_2p1.jsp', // AJAX 요청을 처리할 JSP 파일
+				type : 'GET',
+				data : {
+					storeId : storeId,
+					page : page2p1
+				}, // storeId와 페이지 번호를 서버로 전달
+				success : function(response) {
+					$("#product-2p1-container").append(response); // 응답으로 받은 HTML 추가
+				},
+				error : function() {
+					alert('2+1 상품을 불러오는 데 실패했습니다.');
+				}
+			});
+		}
 	</script>
 
+	<script type="text/javascript">
+		$(document).ready(function() {
+			loadPBProducts(1); // 첫 번째 페이지 데이터 로드
+
+			// '더보기' 버튼 클릭 시
+			$("#btn_more_2p1_cu").click(function() {
+				pagePB++; // 페이지 번호 증가
+				loadPBProducts(pagePB); // 다음 페이지 데이터 로드
+			});
+		});
+
+		function loadPBProducts(page) {
+			$.ajax({
+				url : 'loadMorePBProducts.jsp', // AJAX 요청을 처리할 JSP 파일
+				type : 'GET',
+				data : {
+					storeId : storeId,
+					page : pagePB
+				}, // storeId와 페이지 번호를 서버로 전달
+				success : function(response) {
+					$("#pb-product-container").append(response); // 응답으로 받은 HTML 추가
+				},
+				error : function() {
+					alert('PB 상품을 불러오는 데 실패했습니다.');
+				}
+			});
+		}
+	</script>
 
 	<script src="./jquery.min.js"></script>
 	<script src="./jquery.dropotron.min.js"></script>
