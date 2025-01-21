@@ -1,3 +1,4 @@
+<%@page import="com.pyeondeuk.model.MemberDTO"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
@@ -23,15 +24,46 @@
                 <div id="logo">
                     <a href="index.jsp"><img src="resources/images/logo.png" width="200px"></a>
                 </div>
-                <nav id="nav">
-                    <ul>
-                        <li><a href="index.jsp">메인페이지</a></li>
-                        <li><a href="#">할인상품</a></li>
-                        <li><a href="#">PB상품</a></li>
-                        <li><a href="event.html">이벤트</a></li>
-                        <li><a href="map.jsp">편의점찾기</a></li>
-                        <li><a href="login.jsp">로그인</a></li>
-                    </ul>
+               <% MemberDTO info =(MemberDTO) session.getAttribute("info"); %>
+    
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="index.jsp">메인페이지</a></li>
+						<li><a href="store.jsp?storeId=1">플러스상품</a>
+							<ul>
+								<li><a href="store.jsp?storeId=1"><img
+										src="resources/images/emart.png" width="70px"></a></li>
+								<li><a href="store.jsp?storeId=2"><img
+										src="resources/images/cu.png" width="50px"></a></li>
+								<li><a href="store.jsp?storeId=3"><img
+										src="resources/images/gs.png" width="60px"></a></li>
+								<li><a href="store.jsp?storeId=4"><img
+										src="resources/images/seven.png" width="70px"></a></li>
+							</ul></li>
+
+						<li><a href="store.jsp?storeId=5">PB상품</a>
+							<ul>
+								<li><a href="store.jsp?storeId=5"><img
+										src="resources/images/emart.png" width="70px"></a></li>
+								<li><a href="store.jsp?storeId=6"><img
+										src="resources/images/cu.png" width="50px"></a></li>
+								<li><a href="store.jsp?storeId=7"><img
+										src="resources/images/gs.png" width="60px"></a></li>
+								<li><a href="store.jsp?storeId=8"><img
+										src="resources/images/seven.png" width="70px"></a></li>
+							</ul></li>
+						<li><a href="event.jsp" style="background-color: #444; color: white;">이벤트</a></li>
+						<li><a href="map.jsp">편의점찾기</a></li>
+						<%if(info == null){%>
+                  		<li><a href="login.jsp">로그인</a></li>
+                  		<%}else{ %>
+                     <!-- 로그인 후 Logout.jsp로 이동할 수 있는'로그아웃'링크와 '개인정보수정'링크를 출력하시오. -->
+                     <li><a href="LogoutService">로그아웃</a></li>
+                     <li><a href="update.jsp">회원정보</a></li>
+                  <%} %>
+                  </ul>
                 </nav>
             </header>
         </div>
@@ -45,7 +77,7 @@
                     <% 
                         EventDAO eventDAO = new EventDAO();
                         
-                        		for (int i = 1 ; i <50; i++){
+                        		for (int i = 32; i >0; i--){
                         	EventDTO event = eventDAO.getEvents(i);
                         	if (event != null){
                         

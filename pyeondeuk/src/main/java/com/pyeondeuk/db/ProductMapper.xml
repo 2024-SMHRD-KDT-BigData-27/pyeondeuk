@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pyeondeuk.db.ProductMapper">
+
+	<!-- 카테고리별로 상품 조회 -->
+	<!-- 카테고리별로 상품 조회 -->
+	<!-- 카테고리별로 상품 조회 -->
+	<select id="products_store_calling2" parameterType="Map"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT p.*, ROWNUM AS rn
+		FROM (
+		SELECT *
+		FROM PRODUCTINFO
+		WHERE BRAND_SEQ = #{storeId}
+		AND (CATEGORY = #{CATEGORY} OR #{CATEGORY} IS NULL)
+		AND PROD_CATEGORY = #{PROD_CATEGORY}
+		ORDER BY
+		<choose>
+			<when test="sort == 'priceAsc'">PROD_PRICE ASC</when>
+			<when test="sort == 'priceDesc'">PROD_PRICE DESC</when>
+			<when test="sort == 'productNameAsc'">PROD_NAME ASC</when>
+			<when test="sort == 'productNameDesc'">PROD_NAME DESC</when>
+			<otherwise>PROD_SEQ ASC</otherwise>
+		</choose>
+		) p
+		WHERE ROWNUM &lt;= #{upperLimit}
+		)
+		WHERE rn &gt;= #{lowerLimit}
+	</select>
+
+
+
+
+
+</mapper>

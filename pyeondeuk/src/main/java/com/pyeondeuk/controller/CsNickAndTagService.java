@@ -1,6 +1,7 @@
 package com.pyeondeuk.controller;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.pyeondeuk.db.ConvenienceStoreMapper;
 import com.pyeondeuk.db.SqlSessionManager;
 import org.apache.ibatis.session.SqlSession;
@@ -27,23 +28,26 @@ public class CsNickAndTagService {
     	        return;
     	    }
 
-    	    // 리뷰 데이터 크기 제한
-    	    List<String> limitedReviews = reviews.subList(0, Math.min(10, reviews.size()));
-    	    String reviewText = String.join("\n", limitedReviews);
+    	    String reviewText = String.join("\n", reviews);
     	    System.out.println("API 요청 데이터: " + reviewText);
 
-    	    // OpenAI API 호출
-    	    JsonObject result = OpenAICsNickTag.generateNickAndTag(limitedReviews);
+    	    // API 호출
+    	    JsonObject result = OpenAICsNickTag.generateNickAndTag(reviews);
 
-    	    // 결과에서 별명과 태그 추출
-    	    String nickname = result.get("cs_nick").getAsString();
-    	    String tags = result.get("cs_tag").getAsString();
+    	    // JSON 형식으로 별명과 태그 추출
+            JsonObject choices = result.getAsJsonArray("choices").get(0).getAsJsonObject();
+            String content = choices.getAsJsonObject("message").get("content").getAsString();
 
+            // JSON 파싱
+            JsonObject parsedContent = JsonParser.parseString(content).getAsJsonObject();
+            String nickname = parsedContent.get("cs_nick").getAsString();
+            String tags = parsedContent.get("cs_tag").getAsString();;
+    	    System.out.println("CS_SEQ: " + csSeq + ", 별명: " + nickname + ", 태그: " + tags);
     	    // DB 업데이트
     	    mapper.updateNickAndTag(csSeq, nickname, tags);
     	    session.commit();
 
-    	    System.out.println("CS_SEQ: " + csSeq + ", 별명: " + nickname + ", 태그: " + tags);
+    	   
     	} catch (Exception e) {
     	    throw new RuntimeException("리뷰 처리 중 오류 발생", e);
         }

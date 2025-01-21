@@ -74,7 +74,7 @@ public class MemberDAO {
     public boolean saveReview(MemberDTO review) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            int result = session.insert("com.pyeondeuk.db.MemberMapper.saveReview", review);
+            int result = session.insert("com.pyeondeuk.db.ConvenienceStoreMapper.saveReview", review);
             session.commit();
             return result > 0;
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class MemberDAO {
     public List<MemberDTO> getAllReviews() {
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            return session.selectList("com.pyeondeuk.db.MemberMapper.getAllReviews");
+            return session.selectList("com.pyeondeuk.db.ConvenienceStoreMapper.getAllReviews");
         } finally {
             session.close();
         }
@@ -98,7 +98,7 @@ public class MemberDAO {
     public List<MemberDTO> getReviewsByCsSeq(int csSeq) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            return session.selectList("com.pyeondeuk.db.MemberMapper.getReviewsByCsSeq", csSeq);
+            return session.selectList("com.pyeondeuk.db.ConvenienceStoreMapper.getReviewsByCsSeq", csSeq);
         } finally {
             session.close();
         }

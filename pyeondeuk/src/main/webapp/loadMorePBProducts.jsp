@@ -6,6 +6,7 @@
 <%
 String storeIdParam = request.getParameter("storeId");
 String pagePBParam = request.getParameter("pagePB");
+String brand = "";
 
 // 필수 파라미터 검증
 if (storeIdParam == null || pagePBParam == null) {
@@ -55,17 +56,34 @@ if (pbProducts == null || pbProducts.isEmpty()) {
 }
 
 for (ProductDTO product : pbProducts) {
+	switch (Integer.parseInt(product.getBRAND_SEQ())) {
+    case 1:
+        brand = "이마트24";
+        break;
+    case 2:
+        brand = "CU";
+        break;
+    case 3:
+        brand = "GS25";
+        break;
+    case 4:
+        brand = "세븐일레븐";
+        break;
+    default:
+        brand = "알 수 없음"; // 예외 상황 처리
+        break;
+}
 %>
 <div class="col-3">
     <section class="box feature">
-        <a href="./product.jsp?PROD_SEQ=<%=product.getPROD_SEQ() %>" class="image featured">
+        <a href="./price-chart?prodSeq=<%=product.getPROD_SEQ()%>" class="image featured">
             <img src="<%=product.getPROD_IMG()%>" alt="상품 이미지">
         </a>
         <div class="inner">
             <header>
                 <h1 style="text-align: center;"><%=product.getPROD_NAME()%></h1>
-                <h2 style="text-align: center;"><%=product.getPROD_PRICE()%></h2>
-                <p style="text-align: center;"><%=product.getPROD_CATEGORY()%></p>
+                <h2 style="text-align: center;"><%=product.getPROD_PRICE()%>원</h2>
+                <p style="text-align: center;"><%=brand%></p>
             </header>
         </div>
     </section>

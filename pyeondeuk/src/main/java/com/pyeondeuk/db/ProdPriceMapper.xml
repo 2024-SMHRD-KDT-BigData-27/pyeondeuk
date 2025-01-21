@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pyeondeuk.db.ProdPriceMapper">
+    <select id="getPricesByProdSeq" resultType="com.pyeondeuk.model.ProdPriceDTO">
+        SELECT prod_seq, PRICE_2024_07, PRICE_2024_08, PRICE_2024_09, 
+               PRICE_2024_10, PRICE_2024_11, PRICE_2024_12, PRICE_2025_01
+        FROM prod_price
+        WHERE prod_seq = #{prodSeq}
+    </select>
+</mapper>

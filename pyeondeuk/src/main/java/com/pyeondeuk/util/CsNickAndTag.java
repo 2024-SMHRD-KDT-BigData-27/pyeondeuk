@@ -6,7 +6,7 @@ public class CsNickAndTag {
 	
 	public static void main(String[] args) {
         CsNickAndTagService service = new CsNickAndTagService();
-        int targetCsSeq = 606; // 처리할 편의점의 CS_SEQ (예: 1)
+        int targetCsSeq = 4830; // 처리할 편의점의 CS_SEQ
 
         try {
             service.processReviewsForConvenienceStore(targetCsSeq);

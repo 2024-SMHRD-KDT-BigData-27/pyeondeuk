@@ -42,51 +42,7 @@
 		#{email}
 	</update>
 
-	<insert id="saveReview"
-		parameterType="com.pyeondeuk.model.MemberDTO">
-		INSERT INTO CSREVIEW_TEST (REVIEW_SEQ, CS_SEQ, EMAIL,
-		COMMENT_CONTENT,
-		RATING, CREATED_AT)
-		VALUES (
-		CSREVIEW_TEST_SEQ.NEXTVAL,
-		#{csSeq},
-		#{email},
-		#{commentContent},
-		#{rating},
-		sysdate)
-	</insert>
 
-
-	<select id="getAllReviews"
-		resultType="com.pyeondeuk.model.MemberDTO">
-		SELECT
-		CS_SEQ AS csSeq,
-		EMAIL AS email,
-		COMMENT_CONTENT AS
-		commentContent,
-		RATING AS rating,
-		TO_CHAR(CREATED_AT, 'YYYY-MM-DD
-		HH24:MI:SS') AS createdAt
-		FROM CSREVIEW_TEST
-		ORDER BY CREATED_AT DESC
-	</select>
-
-	<select id="getReviewsByCsSeq" parameterType="int"
-		resultType="com.pyeondeuk.model.MemberDTO">
-		SELECT
-		R.CS_SEQ AS csSeq,
-		U.NICK AS nick,
-		R.EMAIL AS email,
-		R.COMMENT_CONTENT AS commentContent,
-		R.RATING AS rating,
-		TO_CHAR(R.CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
-		FROM
-		CSREVIEW_TEST R
-		JOIN USERS U ON R.EMAIL = U.EMAIL
-		WHERE R.CS_SEQ =
-		#{csSeq}
-		ORDER BY R.CREATED_AT DESC
-	</select>
 
 	<select id="products_calling" parameterType="int"
 		resultType="com.pyeondeuk.model.ProductDTO">
@@ -183,7 +139,24 @@
 		)
 		WHERE rn &gt; #{pagePB}
 	</select>
+	<select id="products_store_calling2" parameterType="Map"
+		resultType="com.pyeondeuk.model.ProductDTO">
+		SELECT *
+		FROM (
+		SELECT p.*, ROWNUM AS rn
+		FROM (
+		SELECT *
+		FROM PRODUCTINFO
+		WHERE BRAND_SEQ = #{storeId}
+		AND (CATEGORY = #{CATEGORY} OR #{CATEGORY} IS NULL)
+		AND PROD_CATEGORY = #{PROD_CATEGORY}
+		ORDER BY PROD_SEQ ASC
+		) p
+		WHERE ROWNUM &lt; #{pageSize} * #{page} -- 상한선 설정
+		)
+		WHERE rn &gt; #{pageSize} * (#{page} - 1); -- 하한선 설정
 
+	</select>
 
 
 

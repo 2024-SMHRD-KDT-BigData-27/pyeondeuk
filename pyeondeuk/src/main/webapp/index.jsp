@@ -13,13 +13,27 @@
 <html>
 
 <head>
-<title>Verti by HTML5 UP</title>
+<title>편득이</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="resources/css/main3.css" />
 <link rel="stylesheet" href="resources/css/font.css" />
 </head>
+<style>
+
+.col-3 .inner header h1 {
+	white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+	overflow: hidden; /* 넘친 텍스트 숨김 */
+	text-overflow: ellipsis; /* 넘친 부분에 '...' 표시 */
+}
+
+.col-3 .box.feature img {
+	max-width: 100%; /* 부모의 너비에 맞게 크기 조정 */
+	max-height: 100%;
+	height: auto; /* 이미지 비율 유지 */
+}
+</style>
 
 <body class="is-preload homepage">
 	<div id="page-wrapper">
@@ -34,9 +48,12 @@
 						width="200px"></a>
 				</div>
 
+
+
 				<%
 				MemberDTO info = (MemberDTO) session.getAttribute("info");
 				ProductDAO dao_P = new ProductDAO();
+				String brand = ""; // brand 변수 선언
 				%>
 
 
@@ -46,7 +63,7 @@
 				<nav id="nav">
 					<ul>
 						<li class="current"><a href="index.jsp">메인페이지</a></li>
-						<li><a href="#">플러스상품</a>
+						<li><a href="store.jsp?storeId=1">플러스상품</a>
 							<ul>
 								<li><a href="store.jsp?storeId=1"><img
 										src="resources/images/emart.png" width="70px"></a></li>
@@ -58,7 +75,7 @@
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
 
-						<li><a href="#">PB상품</a>
+						<li><a href="store.jsp?storeId=5">PB상품</a>
 							<ul>
 								<li><a href="store.jsp?storeId=5"><img
 										src="resources/images/emart.png" width="70px"></a></li>
@@ -99,7 +116,7 @@
 			<button class="arrow left">&lt;</button>
 			<div class="flex-container">
 			<%	
-		for(int i=1; i <= 5; i++){
+		for(int i=32; i > 0 ; i--){
 		EventDAO evt_dao = new EventDAO();
 		EventDTO evt_dto = evt_dao.getEvents(i);
 		%>
@@ -122,7 +139,7 @@
 
 			let currentIndex = 0;
 			const totalItems = document.querySelectorAll('.col-3').length;
-			const itemWidth = 300; // 개별 배너의 너비
+			const itemWidth = 600; // 개별 배너의 너비
 
 			// 왼쪽 버튼 클릭
 			leftArrow.addEventListener('click', () => {
@@ -155,7 +172,7 @@
 		<form action="serchService" method="get">
 			<input type="text" id="search" name="search"
 				placeholder=" 찾으시는 1+1, 2+1 상품명을 입력해주세요. " required>
-			<button type="submit" id="button">검색</button>
+			<button type="submit" id="button" style="background-color: #696969;">검색</button>
 		</form>
 		<br>
 		
@@ -170,19 +187,37 @@
 				<div class="row">
 					<%
 					for (int i = 1; i <= 20; i++) {
+					
 						ProductDTO dto_P = dao_P.products_calling(i);
+						switch (Integer.parseInt(dto_P.getBRAND_SEQ())) {
+						    case 1:
+						        brand = "이마트24";
+						        break;
+						    case 2:
+						        brand = "CU";
+						        break;
+						    case 3:
+						        brand = "GS25";
+						        break;
+						    case 4:
+						        brand = "세븐일레븐";
+						        break;
+						    default:
+						        brand = "알 수 없음"; // 예외 상황 처리
+						        break;
+						}
 					%>
 					
 					<div class="col-3">
 						<section class="box feature">
-							<a href="./product.jsp?PROD_SEQ=<%=dto_P.getPROD_SEQ()%>" class="image featured"><img
+							<a href="./price-chart?prodSeq=<%=dto_P.getPROD_SEQ()%>" class="image featured"><img
 								src="<%=dto_P.getPROD_IMG()%>"></a>
 							<div class="inner">
 								<header>
 									<a href="./page2.html" id="page_move" style="text-decoration: none;">
 										<h1 style="text-align: center;"><%=dto_P.getPROD_NAME()%></h1>
-										<h2 style="text-align: center;"><%=dto_P.getPROD_PRICE()%></h2>
-										<p style="text-align: center;">CU</p>
+										<h2 style="text-align: center;"><%=dto_P.getPROD_PRICE()%>원</h2>
+										<p style="text-align: center; color: #696969;"><%=brand %></p>
 									</a>
 								</header>
 							</div>
@@ -205,7 +240,7 @@
 		<form action="serchService" method="get">
 			<input type="text" id="search" name="search" placeholder=" 찾으시는 PB 상품명을 입력해주세요. "
 				required>
-			<button type="submit" id="button">검색</button>
+			<button type="submit" id="button" style="background-color: #696969;">검색</button>
 		</form>
 		<br>
 		
@@ -216,17 +251,34 @@
                <%
                for (int i = 1; i <= 20; i++) {
                   ProductDTO dto_P = dao_P.products_PB_calling(i);
+                  switch (Integer.parseInt(dto_P.getBRAND_SEQ())) {
+				    case 1:
+				        brand = "이마트24";
+				        break;
+				    case 2:
+				        brand = "CU";
+				        break;
+				    case 3:
+				        brand = "GS25";
+				        break;
+				    case 4:
+				        brand = "세븐일레븐";
+				        break;
+				    default:
+				        brand = "알 수 없음"; // 예외 상황 처리
+				        break;
+				}
                %>
                <div class="col-3">
                   <section class="box feature">
-                     <a href="./product.jsp?PROD_SEQ=<%=dto_P.getPROD_SEQ()%>" class="image featured" style="text-decoration: none;"><img
+                     <a href="./price-chart?prodSeq=<%=dto_P.getPROD_SEQ()%>" class="image featured" style="text-decoration: none;"><img
                         src="<%=dto_P.getPROD_IMG() %>"
                         width="200px"></a>
                      <div class="inner">
                         <header>
                            <h1 style="text-align: center;"><%=dto_P.getPROD_NAME() %></h1>
-                           <h2 style="text-align: center;"><%=dto_P.getPROD_PRICE()%></h2>
-                           <p style="text-align: center;">CU</p>
+                           <h2 style="text-align: center;"><%=dto_P.getPROD_PRICE()%>원</h2>
+                           <p style="text-align: center;"><%=brand %></p>
                         </header>
                      </div>
                   </section>
@@ -247,18 +299,35 @@
 
     	
     	  <%for (ProductDTO product : search_result){
+    		  switch (Integer.parseInt(product.getBRAND_SEQ())) {
+			    case 1:
+			        brand = "이마트24";
+			        break;
+			    case 2:
+			        brand = "CU";
+			        break;
+			    case 3:
+			        brand = "GS25";
+			        break;
+			    case 4:
+			        brand = "세븐일레븐";
+			        break;
+			    default:
+			        brand = "알 수 없음"; // 예외 상황 처리
+			        break;
+			}
             
           %>
         
           <div class="col-3">
              <section class="box feature">
-                <a href="./product.jsp?PROD_SEQ=<%=product.getPROD_SEQ()%>" class="image featured searchImg" style="text-decoration: none;"><img
+                <a href="./price-chart?prodSeq=<%=product.getPROD_SEQ()%>" class="image featured searchImg" style="text-decoration: none;"><img
                    src="<%=product.getPROD_IMG() %>" class="innerimg"></a>
                 <div class="inner">
                    <header>
                       <h1 style="text-align: center;"><%=product.getPROD_NAME() %></h1>
-                      <h2 style="text-align: center;"><%=product.getPROD_PRICE()%></h2>
-                      <p style="text-align: center;">CU</p>
+                      <h2 style="text-align: center;"><%=product.getPROD_PRICE()%>원</h2>
+                      <p style="text-align: center;"><%=brand %></p>
                    </header>
                 </div>
              </section>

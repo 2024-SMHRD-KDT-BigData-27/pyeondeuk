@@ -60,5 +60,51 @@
         SET CS_NICK = #{csNick}, CS_TAG = #{csTag}
         WHERE CS_SEQ = #{csSeq}
     </update>
+    
+    	<insert id="saveReview"
+		parameterType="com.pyeondeuk.model.MemberDTO">
+		INSERT INTO CSREVIEW (REVIEW_SEQ, CS_SEQ, EMAIL,
+		COMMENT_CONTENT,
+		RATING, CREATED_AT)
+		VALUES (
+		CSREVIEW_SEQ.NEXTVAL,
+		#{csSeq},
+		#{email},
+		#{commentContent},
+		#{rating},
+		sysdate)
+	</insert>
+
+
+	<select id="getAllReviews"
+		resultType="com.pyeondeuk.model.MemberDTO">
+		SELECT
+		CS_SEQ AS csSeq,
+		EMAIL AS email,
+		COMMENT_CONTENT AS
+		commentContent,
+		RATING AS rating,
+		TO_CHAR(CREATED_AT, 'YYYY-MM-DD
+		HH24:MI:SS') AS createdAt
+		FROM CSREVIEW
+		ORDER BY CREATED_AT DESC
+	</select>
+
+	<select id="getReviewsByCsSeq" parameterType="int"
+		resultType="com.pyeondeuk.model.MemberDTO">
+		SELECT
+		R.CS_SEQ AS csSeq,
+		U.NICK AS nick,
+		R.EMAIL AS email,
+		R.COMMENT_CONTENT AS commentContent,
+		R.RATING AS rating,
+		TO_CHAR(R.CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS createdAt
+		FROM
+		CSREVIEW R
+		JOIN USERS U ON R.EMAIL = U.EMAIL
+		WHERE R.CS_SEQ =
+		#{csSeq}
+		ORDER BY R.CREATED_AT DESC
+	</select>
 
 </mapper>

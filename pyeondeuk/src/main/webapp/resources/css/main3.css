@@ -178,13 +178,13 @@ html {
 
 body {
 	background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0)), url("images/bg01.png");
+		rgba(0, 0, 0, 0)), url("resource/images/bg01.png");
 	background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0)), url("images/bg01.png");
+		rgba(0, 0, 0, 0)), url("resource/images/bg01.png");
 	background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0)), url("images/bg01.png");
+		rgba(0, 0, 0, 0)), url("resource/images/bg01.png");
 	background-image: linear-gradient(top, rgba(0, 0, 0, 0.05),
-		rgba(0, 0, 0, 0)), url("images/bg01.png");
+		rgba(0, 0, 0, 0)), url("resource/images/bg01.png");
 	background-color: #f7f7f7;
 	background-position: top left, top left;
 	background-repeat: repeat-x, repeat;
@@ -1422,9 +1422,8 @@ table thead {
 }
 
 .image img {
-	display: block;
-	width: 100%;
-	border-radius: 8px;
+
+
 }
 
 .image.fit {
@@ -1444,7 +1443,7 @@ table thead {
 }
 
 .innerimg {
-	width: 100%;
+
 	height: auto; /* 부모의 높이에 맞춤 */
 	object-fit: cover;
 	overflow: hidden;
@@ -1470,6 +1469,10 @@ searchImg{
 }
 
 /* Button */
+
+
+
+
 input[type="button"], input[type="submit"], input[type="reset"], button,
 	.button {
 	-moz-transition: background-color .25s ease-in-out;
@@ -1601,7 +1604,7 @@ ul.menu li:first-child {
 /* Box */
 .box {
 	background: #fff;
-	border-radius: 6px;
+	border-radius: 6%;
 	box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.05);
 	padding: 2em;
 }
@@ -1729,7 +1732,7 @@ ul.menu li:first-child {
 #main-wrapper {
 	background: #eee;
 	box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.05);
-	padding: 5em 0 5em 0;
+	padding: 1em 0 5em 0;
 }
 
 #footer-wrapper {
@@ -2314,6 +2317,7 @@ ul.menu li:first-child {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 	}
+	
 
 	/* Widgets */
 	.widget.thumbnails .image {

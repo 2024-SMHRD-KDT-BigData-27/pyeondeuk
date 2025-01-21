@@ -1,3 +1,4 @@
+<%@page import="com.pyeondeuk.model.MemberDTO"%>
 <%@page import="com.pyeondeuk.model.ProductDAO"%>
 <%@page import="com.pyeondeuk.model.ProductDTO"%>
 <%@page import="java.util.List"%>
@@ -8,12 +9,34 @@
 <%
 int storeId = Integer.parseInt(request.getParameter("storeId"));
 ProductDAO dao = new ProductDAO();
+String brandLogo = ""; // brandLogo 변수 선언
+
+switch (storeId) {
+    case 1: case 5:
+        brandLogo = "emart.png";
+        break;
+    case 2: case 6:
+        brandLogo = "cu.png";
+        break;
+    case 3: case 7:
+        brandLogo = "gs.png";
+        break;
+    case 4: case 8:
+        brandLogo = "seven.png";
+        break;
+    default:
+        brandLogo = "default.png"; // 예외 처리 (필요 시)
+        break;
+}
+
+System.out.println("브랜드 로고: " + brandLogo);
+
 %>
 
 
 
 <head>
-<title>Verti by HTML5 UP</title>
+<title>편득이</title>
 <meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -23,6 +46,8 @@ ProductDAO dao = new ProductDAO();
 <style>
 h2 {
 	font-size: 35px;
+	display: flex;
+    justify-content: center;
 }
 
 .dropdown {
@@ -68,6 +93,18 @@ h2 {
 	background-color: #0066cc;
 	color: white;
 }
+
+.col-3 .inner header h1 {
+	white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+	overflow: hidden; /* 넘친 텍스트 숨김 */
+	text-overflow: ellipsis; /* 넘친 부분에 '...' 표시 */
+}
+
+.col-3 .box.feature img {
+	max-width: 100%; /* 부모의 너비에 맞게 크기 조정 */
+	max-height: 100%;
+	height: auto; /* 이미지 비율 유지 */
+}
 </style>
 
 <body class="is-preload no-sidebar">
@@ -85,11 +122,14 @@ h2 {
 
 				</div>
 
+				 <% MemberDTO info =(MemberDTO) session.getAttribute("info"); %>
+    
+
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="index.jsp">메인페이지</a></li>
-						<li><a href="#">플러스상품</a>
+						<li class="current"><a href="index.jsp">메인페이지</a></li>
+						<li><a href="store.jsp?storeId=1">플러스상품</a>
 							<ul>
 								<li><a href="store.jsp?storeId=1"><img
 										src="resources/images/emart.png" width="70px"></a></li>
@@ -101,7 +141,7 @@ h2 {
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
 
-						<li><a href="#">PB상품</a>
+						<li><a href="store.jsp?storeId=5">PB상품</a>
 							<ul>
 								<li><a href="store.jsp?storeId=5"><img
 										src="resources/images/emart.png" width="70px"></a></li>
@@ -112,12 +152,15 @@ h2 {
 								<li><a href="store.jsp?storeId=8"><img
 										src="resources/images/seven.png" width="70px"></a></li>
 							</ul></li>
-
 						<li><a href="event.jsp">이벤트</a></li>
-
 						<li><a href="map.jsp">편의점찾기</a></li>
-						<li><a href="login.jsp">로그인</a></li>
-
+						<%if(info == null){%>
+                  		<li><a href="login.jsp">로그인</a></li>
+                  		<%}else{ %>
+                     <!-- 로그인 후 Logout.jsp로 이동할 수 있는'로그아웃'링크와 '개인정보수정'링크를 출력하시오. -->
+                     <li><a href="LogoutService">로그아웃</a></li>
+                     <li><a href="update.jsp">회원정보</a></li>
+                  <%} %>
 					</ul>
 					</li>
 
@@ -136,7 +179,7 @@ h2 {
 					<article>
 
 						<h2>
-							<img src="resources/images/cu.png" width="150px">
+							<img src="resources/images/<%=brandLogo%>" width="150px">
 						</h2>
 
 
@@ -149,38 +192,40 @@ h2 {
 							<li style="flex-grow: 1; margin-right: 10px;">
 								<div class="dropdown" style="width: 100%; border-radius: 10px;">
 									<select id="strEventType" name="strEventType"
+										onchange="filterAndSortProducts()"
 										style="width: 100%; border-radius: 5px;">
-										<option value>행사 전체</option>
-										<option value="1p1">1 + 1</option>
-										<option value="2p1">2 + 1</option>
+										<option value="">행사 전체</option>
+										<option value="1p1">1+1</option>
+										<option value="2p1">2+1</option>
 									</select>
 								</div>
 							</li>
 
 							<li style="flex-grow: 1; margin-right: 10px;">
 								<div class="dropdown" style="width: 100%; border-radius: 10px;">
-									<select id="strCategory" name="strCategory">
-										<option value>카테고리 전체</option>
+									<input type="hidden" id="storeId" name="storeId"
+										value="<%=storeId%>"> <select id="strCategory"
+										name="strCategory" onchange="filterAndSortProducts()">
+										<option value="">카테고리 전체</option>
 										<option value="음료">음료</option>
 										<option value="간편식사">간편식사</option>
 										<option value="과자">과자</option>
 										<option value="아이스크림">아이스크림</option>
 										<option value="식품">식품</option>
 										<option value="생활용품">생활용품</option>
-
+										<option value="기타">기타</option>
 									</select>
 								</div>
 							</li>
 
-
 							<li style="flex-grow: 1;">
 								<div class="dropdown" style="width: 100%; border-radius: 10px;">
-									<select id="strSort" name="strSort">
+									<select id="strSort" name="strSort"
+										onchange="filterAndSortProducts()">
 										<option value="priceAsc">가격 낮은 순</option>
 										<option value="priceDesc">가격 높은 순</option>
 										<option value="productNameAsc">상품명 오름차순</option>
 										<option value="productNameDesc">상품명 내림차순</option>
-
 									</select>
 								</div>
 							</li>
@@ -188,70 +233,74 @@ h2 {
 
 
 
-						<form action="https://www.google.com/search" method="get">
-							<input type="text" id="search" placeholder=" 찾으시는 상품명을 입력해주세요. "
-								required>
+						<form action="serchService" method="get">
+							<input type="text" id="search" name="search"
+								placeholder=" 찾으시는 상품명을 입력해주세요. " required>
 							<button type="submit" id="button"
-								style="background-color: #800080;">검색</button>
+								style="background-color: #696969;">검색</button>
 						</form>
 
 
 					</article>
 
 					<br>
-					<%
-						if (storeId == 1 || storeId == 2 || storeId == 3 || storeId == 4) {
-					%>
-					<h2>1+1</h2>
-					<br>
 
-					<div id="features-wrapper">
-						<div class="container">
-							<div class="row" id="product-container">
-								<!-- 최초 로딩 시 1번째 페이지의 상품들만 보여줍니다 -->
+					<div id="product-sections" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+						<h2 style="<%=storeId <= 4 ? "" : "display: none;"%>">1+1</h2>
+						<br>
+
+						<div id="features-wrapper" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+							<div class="container" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+								<div class="row" id="product-container" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+									<!-- 최초 로딩 시 1번째 페이지의 상품들만 보여줍니다 -->
+								</div>
 							</div>
+						</div>
+
+
+
+						<div id="data-container" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+							<button class="add" id="btn_more_cu" style="<%=storeId <= 4 ? "" : "display: none;"%> width: 1400px; height:39px; background-color: #444444;">+</button>
+						</div>
+
+
+						<br> <br>
+						<h2 style="<%=storeId <= 4 ? "" : "display: none;"%>">2+1</h2>
+						<br>
+
+						<div id="features-wrapper" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+							<div class="container" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+								<div class="row" id="product-2p1-container" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+									<!-- 최초 로딩 시 1번째 페이지의 상품들만 보여줍니다 -->
+								</div>
+							</div>
+						</div>
+
+						<div id="data-container" style="<%=storeId <= 4 ? "" : "display: none;"%>">
+							<button class="add" id="btn_more_2p1_cu" style="<%=storeId <= 4 ? "" : "display: none;"%> width: 1400px; height:39px; background-color: #444444;">+</button>
+						</div>
+					</div>
+
+					
+				
+
+					<div id="product-sections" style="<%=storeId > 4 ? "" : "display: none;"%>">
+						<h2 style="<%=storeId > 4 ? "" : "display: none;"%>">PB 상품</h2>
+						<br>
+						<div id="features-wrapper" style="<%=storeId > 4 ? "" : "display: none;"%>">
+							<div class="container">
+								<div class="row" id="pb-product-container"style="<%=storeId > 4 ? "" : "display: none;"%>">
+									<!-- PB 상품 리스트 -->
+								</div>
+							</div>
+						</div>
+
+						<div id="data-container" style="<%=storeId > 4 ? "" : "display: none;"%>">
+							<button class="add" id="btn_more_pb" style="<%=storeId > 4 ? "" : "display: none;"%> width: 1400px; height: 39px; background-color: #444444;">+</button>
 						</div>
 					</div>
 
 
-
-					<div id="data-container">
-						<button class="add" id="btn_more_cu">+</button>
-					</div>
-
-
-					<br> <br>
-					<h2>2+1</h2>
-					<br>
-
-					<div id="features-wrapper">
-						<div class="container">
-							<div class="row" id="product-2p1-container">
-								<!-- 최초 로딩 시 1번째 페이지의 상품들만 보여줍니다 -->
-							</div>
-						</div>
-					</div>
-
-					<div id="data-container">
-						<button class="add" id="btn_more_2p1_cu">+</button>
-					</div>
-					<%
-} else {
-%>
-					<h2>PB 상품</h2>
-					<br>
-					<div id="features-wrapper">
-						<div class="container">
-							<div class="row" id="pb-product-container">
-								<!-- PB 상품 리스트 -->
-							</div>
-						</div>
-					</div>
-
-					<div id="data-container">
-						<button class="add" id="btn_more_pb">+</button>
-					</div>
-<%} %>
 
 
 
@@ -267,7 +316,7 @@ h2 {
 				<div class="row">
 					<!-- Contact -->
 					<section class="문의하기">
-						<a href="#" class="top-link" style="color: #800080;">맨 위로</a> <br>
+						<a href="#" class="top-link" style="color: #444444;">맨 위로</a> <br>
 						<br> <br>
 						<h3>문의하기</h3>
 						<p>
@@ -295,7 +344,8 @@ h2 {
 	<!-- Scripts -->
 
 	<script type="text/javascript">
-		var storeId =<%=storeId%>
+		var storeId =
+	<%=storeId%>
 		; // JSP에서 storeId를 JavaScript로 전달
 
 		$(document).ready(function() {
@@ -383,6 +433,57 @@ h2 {
 				}
 			});
 		}
+	</script>
+
+	<script type="text/javascript">
+	function filterProducts() {
+        const category = document.getElementById("strCategory").value || "";
+
+        fetch(`/pyeondeuk/orderByService?storeId=${storeId}&strCategory=${category}&page=1`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("product-container").innerHTML = data.onePlusOne;
+                document.getElementById("product-2p1-container").innerHTML = data.twoPlusOne;
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script>
+
+
+	<script type="text/javascript">
+	function filterAndSortProducts() {
+	    const eventType = document.getElementById("strEventType").value || "";
+	    const category = document.getElementById("strCategory").value || "";
+	    const sort = document.getElementById("strSort").value || "default";
+
+	    fetch(`/pyeondeuk/orderByService?storeId=${storeId}&strCategory=${category}&strEventType=${eventType}&sort=${sort}&page=1`)
+	        .then(response => response.json())
+	        .then(data => {
+	            // 1+1 및 2+1 상품 목록 갱신
+	            document.getElementById("product-container").innerHTML = unescapeJson(data.onePlusOne);
+	            document.getElementById("product-2p1-container").innerHTML = unescapeJson(data.twoPlusOne);
+	            document.getElementById("pb-product-container").innerHTML = unescapeJson(data.pbProducts);
+	            
+	            
+	        })
+	        .catch(error => console.error("Error:", error));
+	}
+
+	function unescapeJson(jsonStr) {
+	    return jsonStr.replace(/\\n/g, '\n')
+	                  .replace(/\\r/g, '\r')
+	                  .replace(/\\"/g, '"')
+	                  .replace(/\\\\/g, '\\'); // JSON의 백슬래시를 복원
+	}
+
+	</script>
+
+	// 드롭다운 변경 시 필터 및 정렬 실행
+	document.getElementById("strSort").addEventListener("change",
+	filterAndSortProducts);
+	document.getElementById("strCategory").addEventListener("change",
+	filterAndSortProducts);
+
 	</script>
 
 	<script src="./jquery.min.js"></script>

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
- "https://mybatis.org/dtd/mybatis-3-config.dtd">
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+<settings>
+    <setting name="logImpl" value="STDOUT_LOGGING" />
+</settings>
+
+  <typeAliases>
+      <typeAlias alias="ProdPriceDTO"
+         type="com.pyeondeuk.model.ProdPriceDTO" />
+   </typeAliases>
 
     <environments default="development">
         <environment id="development">
@@ -22,5 +30,7 @@
         <mapper resource="com/pyeondeuk/db/MemberMapper.xml"/>
         <mapper resource="com/pyeondeuk/db/ConvenienceStoreMapper.xml" />
          <mapper resource="com/pyeondeuk/db/EventMapper.xml" />
+         <mapper resource="com/pyeondeuk/db/ProductMapper.xml"/>
+         <mapper resource="com/pyeondeuk/db/ProdPriceMapper.xml"/>
     </mappers>
 </configuration>
