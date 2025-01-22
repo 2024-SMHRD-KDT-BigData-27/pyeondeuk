@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="resources/css/main3.css" />
 <link rel="stylesheet" href="resources/css/font.css" />
 <script
-	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=71df7e3003dbbd28ec11f264e023e8c9&autoload=false"></script>
+	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=818db477dcf4c15dd62010e4fcb787b6&autoload=false"></script>
 <style>
 @font-face {
 	font-family: 'Ownglyph_ryuttung-Rg';

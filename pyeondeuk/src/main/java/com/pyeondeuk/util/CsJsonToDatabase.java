@@ -14,7 +14,7 @@ public class CsJsonToDatabase {
     public static void main(String[] args) {
         try {
             // Parse JSON
-            List<ConvenienceStoreDTO> stores = parseJson("C:\\Users\\smhrd\\git\\pyeondeuk2\\pyeondeuk\\convenience_stores.json");
+            List<ConvenienceStoreDTO> stores = parseJson("C:\\Users\\smhrd\\git\\pyeondeuk\\pyeondeuk\\convenience_stores.json");
 
             filterAndSaveStores(stores);
 
