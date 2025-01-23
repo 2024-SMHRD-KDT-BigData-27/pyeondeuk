@@ -1,11 +1,11 @@
 package com.pyeondeuk.db;
 
-import com.pyeondeuk.model.ConvenienceStoreDTO;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.pyeondeuk.model.ConvenienceStoreDTO;
 
 @Mapper
 public interface ConvenienceStoreMapper {

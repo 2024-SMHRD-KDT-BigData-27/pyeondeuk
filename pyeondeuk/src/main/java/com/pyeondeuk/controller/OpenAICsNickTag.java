@@ -11,7 +11,7 @@ import java.util.List;
 public class OpenAICsNickTag {
 
 	private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-	private static final String API_KEY = "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";
+	private static final String API_KEY = "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";
 
 	/**
 	 * 리뷰 데이터를 기반으로 별명과 태그를 생성합니다.

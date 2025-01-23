@@ -1,3 +1,5 @@
+// 편의점 별명과 태그 만들어주는 유틸
+
 package com.pyeondeuk.util;
 
 import com.pyeondeuk.controller.CsNickAndTagService;
